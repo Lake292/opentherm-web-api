@@ -1,8 +1,5 @@
 import unittest
 
-from opentherm_web_api.opentherm_controller import OpenThermController
-
-
 class TestSimple(unittest.TestCase):
 
     def test_dummy(self):
