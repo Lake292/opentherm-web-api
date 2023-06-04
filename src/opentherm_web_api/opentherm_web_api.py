@@ -60,7 +60,7 @@ class OpenThermWebApi:
 
         api_url = urllib.parse.urljoin(self.host, "/opentherm/controller")
         response = requests.get(api_url, headers=headers, timeout=TIMEOUT)
-        self.controller = OpenThermController(self, response)
+        self.controller = OpenThermController(response)
         return self.controller
 
     def push_change(self) -> None:
