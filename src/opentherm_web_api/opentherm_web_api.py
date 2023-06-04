@@ -77,21 +77,21 @@ class OpenThermWebApi:
 
     def set_room_temperature(self, temperature: float) -> None:
         """Set room temperature."""
-        self.room_setpoint = temperature
+        self.controller.room_setpoint = temperature
         self.push_change()
 
     def set_dhw_temperature(self, temperature: float) -> None:
         """Set domestic hot water temperature."""
-        self.dhw_setpoint = temperature
+        self.controller.dhw_setpoint = temperature
         self.push_change()
 
     def set_away_mode(self, away_mode: bool) -> None:
         """Set away mode."""
-        self.away = away_mode
+        self.controller.away = away_mode
         self.push_change()
 
     def set_hvac_mode(self, enabled: bool) -> None:
         """Set HVAC mode."""
-        self.enabled = enabled
+        self.controller.enabled = enabled
         self.push_change()
 
