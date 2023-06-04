@@ -20,7 +20,7 @@ class OpenThermWebApi:
     def authenticate(self) -> bool:
         """Test connection."""
 
-        token = self.get_token
+        token = self.get_token()
         if token:
             return True
 
