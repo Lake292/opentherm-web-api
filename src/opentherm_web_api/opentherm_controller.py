@@ -1,14 +1,11 @@
-from .opentherm_web_api import OpenThermWebApi
 from requests import Response
+from typing import Any
 
 class OpenThermController:
     """Class that represents the data object that holds the data."""
 
-    web_api: OpenThermWebApi
-
-    def __init__(self, web_api: OpenThermWebApi, response: Response) -> None:
+    def __init__(self, response: Response) -> None:
         """Initiatlize."""
-        self.web_api = web_api
         json = response.json()
         self.device_id = json.get("deviceId")
         self.dhw_setpoint = json.get("dhwSetpoint")
@@ -23,22 +20,13 @@ class OpenThermController:
         self.chw_active = json.get("chwActive")
         self.dhw_active = json.get("dhwActive")
 
-    def set_room_temperature(self, temperature: float) -> None:
-        """Set room temperature."""
-        self.room_setpoint = temperature
-        self.web_api.push_change(self)
+    def get_json(self) -> dict[str, Any]:
+        data = {
+            "deviceId": self.device_id,
+            "enabled": self.enabled,
+            "roomSetpoint": self.room_setpoint,
+            "dhwSetpoint": self.dhw_setpoint,
+            "away": self.away,
+        }
 
-    def set_dhw_temperature(self, temperature: float) -> None:
-        """Set domestic hot water temperature."""
-        self.dhw_setpoint = temperature
-        self.web_api.push_change(self)
-
-    def set_away_mode(self, away_mode: bool) -> None:
-        """Set away mode."""
-        self.away = away_mode
-        self.web_api.push_change(self)
-
-    def set_hvac_mode(self, enabled: bool) -> None:
-        """Set HVAC mode."""
-        self.enabled = enabled
-        self.web_api.push_change(self)
+        return data
